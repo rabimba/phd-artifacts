@@ -1,0 +1,206 @@
+\ProvidesPackage{poly}[2023/05/11 Beamer Theme for UH by Rabimba Karanjai.]
+
+% ================================================================================
+% Packages
+% ================================================================================
+
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{verbatim}
+\RequirePackage{hyperref}
+\RequirePackage{listings}
+
+% ================================================================================
+% Color Accents
+% ================================================================================
+
+\definecolor{uhred2}{HTML}{C8102E}
+\definecolor{uhred}{HTML}{C8102E}
+\definecolor{polyugrey}{HTML}{58595B}
+\definecolor{skyblue}{HTML}{6BA4B8}
+
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{author}{fg=white}
+\setbeamercolor{date}{fg=white}
+\setbeamercolor{head}{bg=uhred2}
+
+\setbeamercolor{alerted text}{fg=uhred}
+\setbeamercolor{normal text}{fg=darkgray,bg=white}
+\setbeamercolor{structure}{fg=uhred}
+
+\setbeamercolor{jumbo}{bg=uhred}
+\setbeamercolor{progress bar}{fg=uhred,bg=polyugrey}
+\setbeamercolor{progress bar progress}{use=progress bar,bg=progress bar.fg}
+
+\hypersetup{
+	colorlinks,
+	linkcolor=uhred,
+	anchorcolor=red,
+	citecolor=blue!80,
+	urlcolor=skyblue,
+}
+
+%\setbeamercolor{block title}{fg=airforceblue,bg=morelightgray}
+%\setbeamercolor{block body}{fg=darkgray,bg=morelightgray}
+
+% ================================================================================
+% Fonts
+% ================================================================================
+
+\setbeamerfont{author}{size=\small}
+\setbeamerfont{date}{size=\footnotesize}
+\setbeamerfont{title}{series=\bfseries, size=\Large}
+\setbeamerfont{subtitle}{series=\mdseries,size=\normalsize}
+
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamerfont{framesubtitle}{series=\mdseries}
+\setbeamerfont{footline}{size=\scriptsize}
+\setbeamerfont{block title}{series=\centering, size=\small}
+\setbeamerfont{block body}{size=\scriptsize}
+
+\usefonttheme{serif}
+
+% ================================================================================
+% Basic Settings
+% ================================================================================
+
+% cancel navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% prettier boxes
+\setbeamertemplate{blocks}[rounded]
+
+% bullet points
+\setbeamertemplate{itemize item}{\textbullet}
+\setbeamertemplate{itemize subitem}{\textemdash}
+\setbeamertemplate{itemize subsubitem}{\ensuremath{\circ}}
+
+% paragraph spacing
+\setlength{\parskip}{10pt}
+
+% code environment
+\lstdefinestyle{mystyle}{
+    commentstyle=\color{skyblue},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{polyugrey},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\scriptsize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    xleftmargin=10pt,
+    xrightmargin=10pt,
+}
+\lstset{style=mystyle}
+
+% ================================================================================
+% Slide Templates
+% ================================================================================
+
+% headline for all frames
+\setbeamertemplate{headline}{
+	\ifnum\theframenumber=1
+		% not display the headline for the title page
+	\else
+		\begin{beamercolorbox}[wd=\paperwidth,ht=40pt]{head}
+			\hspace{400pt}\includegraphics[width=40pt]{source/UH_White_Red.png}
+		\end{beamercolorbox}
+	\fi
+}
+
+% frame title and subtitle
+\setbeamertemplate{frametitle}{
+    \begin{picture}(0,0)
+        \ifx\insertframesubtitle\@empty%
+            \put(0,25){\usebeamerfont{frametitle}\usebeamercolor[fg]{title}\insertframetitle}%
+		\else%
+			\put(0,32){\usebeamerfont{frametitle}\usebeamercolor[fg]{title} \insertframetitle}%
+			\put(2,19){\usebeamerfont{framesubtitle}\usebeamercolor[fg]{title} \insertframesubtitle }
+		\fi
+    \end{picture}
+}
+
+% title page
+\setbeamertemplate{title page}{
+	\begin{picture}(0,0)
+		\put(-18,70){\includegraphics[width=140pt]{source/UH-Horiz-Logos-RGB}}
+        \put(-5,-77){
+            \begin{beamercolorbox}[wd=1.1\paperwidth,ht=140pt]{jumbo}
+            \end{beamercolorbox}
+        }
+        	% \put(243,-135){\includegraphics[width=250pt]{source/logo-trans.pdf}}
+        	% \put(280,-118){\includegraphics[width=140pt]{source/tagline}}
+		\put(0,25){%
+			\begin{minipage}{300pt}
+				\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par
+				\vspace{10pt}
+				\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle
+			\end{minipage}
+		}
+		\put(0,-45){%
+			\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor
+		}
+		\put(0,-60){%
+			\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate
+		}
+	\end{picture}
+}
+
+\defbeamertemplate{footline}{progress bar}{
+	\dimen0=\paperwidth
+	\multiply\dimen0 by \insertframenumber
+	\divide\dimen0 by \inserttotalframenumber
+	\edef\progressbarwidth{\the\dimen0}
+	\leavevmode%
+	\ifnum\theframenumber=1
+	\else
+		\begin{beamercolorbox}[wd=\paperwidth,ht=2pt,dp=1pt]{progress bar}
+			\begin{beamercolorbox}[wd=\progressbarwidth,ht=2pt,dp=1pt]{progress bar progress}
+			\end{beamercolorbox}%
+		\end{beamercolorbox}%
+	\fi
+}
+
+\setbeamertemplate{footline}[progress bar]
+
+% last frame
+\newcommand{\backmatter}{
+	\begingroup
+	\setbeamertemplate{headline}{}
+	\setbeamertemplate{footline}{}
+	\begin{frame}[c]{}
+		\begin{picture}(0,0)
+			\put(-28.5,-25){\includegraphics[width=1.01\paperwidth]{source/last-frame}}
+		\end{picture}
+	\end{frame}
+\endgroup
+}
+
+% style of sections and subsections in ToCs
+\setbeamertemplate{section in toc}{
+	$\blacktriangleright$~\inserttocsection
+}
+\setbeamertemplate{subsection in toc}{}
+\setbeamertemplate{frametitle continuation}{}
+
+% begin of sections
+\AtBeginSection[]
+{
+    \begingroup
+    \begin{frame}{Contents}{}
+    	\begin{picture}(0,0)
+    		\put(-28.5,-166){\includegraphics[width=\paperwidth]{source/silhouette}}
+    	\end{picture}
+        \tableofcontents[currentsection]
+    \end{frame}
+    \endgroup
+}
